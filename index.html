@@ -48,6 +48,8 @@ h2{font:400 22px/1.15 Righteous,system-ui,sans-serif;margin:0}
 .live.off{background:var(--chip);color:var(--mute);font-weight:500}
 .addr{color:var(--aqua);font-weight:500;text-decoration:none;font-size:15px}
 .addr:hover{text-decoration:underline}
+.gmap{display:inline-block;margin:6px 0 2px;padding:5px 10px;border:1px solid var(--aqua);border-radius:999px;color:var(--aqua);font-size:13px;font-weight:600;text-decoration:none}
+.gmap:active{opacity:.7}
 .when{font-size:15px;font-weight:500}
 .deal{margin:0;font-size:16px}
 .tags{display:flex;gap:6px;flex-wrap:wrap}
@@ -115,6 +117,7 @@ header p.upd{font-size:13px;margin-top:6px;text-align:left;border:0;padding:0}
 {
 const ALL=[0,1,2,3,4,5,6],WK=[1,2,3,4,5],MT=[1,2,3,4],FS=[5,6,0];
 const S={shel:"Resident, May 2025 (Shelborne Aperitivo Hour)",atk:"Atly 2026 + Secret Miami Feb 2024",tcf:"Cheesecake Factory location page (hours) + PureWow, Apr 2025 (prices) + ShopFood (bar-area policy)",uch:"Uchiko official site, Nov 2026",hav:"Havana 1957 official site, 2026",mntrc:"Miami New Times, 2025",mlsg:"Miami Living, Nov 2026",mnt23:"Miami New Times, 2023",wre:"World Red Eye, Sept 2026",gt:"Goodtime Hotel site",ot:"OpenTable, 2026",at:"Atly, Jun 2026",std:"Standard Hotels site + Miami New Times",o26:"Miami & Beaches, Feb 2026",o25:"Miami & Beaches, Nov 2025",ml:"Miami Living, spring 2026",mnt:"Miami New Times, 2026",ac:"Art Circuits",sm:"Secret Miami, Feb 2024",to:"Time Out"};
+const gm=v=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(v.n+", "+v.a);
 // seat: bar = bar-only / the venue is a bar; all = bar & tables; ? = not confirmed
 const V=[
 {n:"Sweet Liberty Drinks & Supply Co.",y:[4.4,1078,"sweet-liberty-drinks-and-supply-company-miami-beach"],h:"Collins Park",a:"237 20th St, Ste B, Miami Beach, FL 33139",g:[25.7958,-80.1300],t:[[ALL,16,20]],d:"Cult cocktail bar with one of the beach's best cheap-oyster deals.",food:1,seat:"?",p:[["Raw oysters (each)","$1.25"],["Mini martini","$6"],["Select cocktails","$10"]],s:"o25",ok:"Open — Yelp reviews Nov 2025"},
@@ -187,7 +190,8 @@ function render(){
   <article class="card">
     <div class="top"><div><h2>${esc(v.n)}</h2><div class="hood">${esc(v.h)}${here?` · <span class="dist">${mi(v).toFixed(1)} mi</span>`:""}</div></div>
       <span class="live ${s.k==="on"?"":s.k==="soon"?"soon":"off"}">${esc(s.txt)}</span></div>
-    <a class="addr" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.a)}" rel="noopener">${esc(v.a)}</a>
+    <a class="addr" href="${gm(v)}" target="_blank" rel="noopener">${esc(v.a)}</a>
+    <a class="gmap" href="${gm(v)}" target="_blank" rel="noopener">📍 Open in Google Maps</a>
     <div class="when">${esc(when(v))}</div>
     ${v.y?`<a class="yelp" href="https://www.yelp.com/biz/${v.y[2]}" rel="noopener">★ ${v.y[0].toFixed(1)} on Yelp · ${v.y[1].toLocaleString()} reviews</a>`:""}
     <p class="deal">${esc(v.d)}</p>
