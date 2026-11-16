@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07232a">
+<meta name="color-scheme" content="dark">
+<title>Miami Beach Happy Hours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: breezy, local, useful at 4:55pm on a phone
+   IDEA: an Art Deco Ocean Drive hotel sign + a well-kept bar chalkboard
+   PICTURE: the live list itself, under a deco sunset band
+   COLOUR and TYPE: flamingo pink, deco aqua, sunset yellow on white / deep lagoon at night; Righteous + Outfit
+   LAYOUT: modest header band, sticky filter row, one column of cards (two above 900px) */
+:root{color-scheme:dark;
+--bg:light-dark(#fffdf9,#07232a);--card:light-dark(#ffffff,#0d323b);--ink:light-dark(#14262b,#eef8f7);
+--mute:light-dark(#566a6e,#a9c6c6);--line:light-dark(#e6ecea,#1d4a53);
+--pink:#ff5c93;--aqua:light-dark(#0f9e9a,#43d3c9);--sun:#ffc94a;--chip:light-dark(#eef7f6,#123f48)}
+:root[data-theme=light]{color-scheme:dark}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Outfit,system-ui,sans-serif;overflow-x:clip}
+header{position:relative;background:linear-gradient(180deg,#ff8fb4 0%,#ffb27a 55%,#ffd36b 100%);color:#2a0f1c;overflow:hidden}
+header .in{position:relative;z-index:1;max-width:1240px;margin:auto;padding:28px max(5vw,16px) 92px}
+h1{font:400 clamp(32px,8vw,52px)/1.05 Righteous,system-ui,sans-serif;margin:0;text-wrap:balance}
+header p{margin:8px 0 0;max-width:46ch;font-size:16px}
+header svg{position:absolute;inset:auto 0 0 0;width:100%;height:110px}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px max(5vw,16px)}
+.bar .in{max-width:1240px;margin:auto;display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input[type=search],select{font:16px Outfit,sans-serif;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:10px;min-height:36px;padding:0 10px}
+input[type=search]{flex:1 1 220px}
+select{flex:0 1 200px}
+.chip{font:500 14px Outfit,sans-serif;min-height:36px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--chip);color:var(--ink);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--aqua);border-color:var(--aqua);color:#fff}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+main{max-width:1240px;margin:auto;padding:18px max(5vw,16px) 40px}
+.count{color:var(--mute);font-size:14px;margin:0 0 12px}
+.list{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:900px){.list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+h2{font:400 22px/1.15 Righteous,system-ui,sans-serif;margin:0}
+.hood{font-size:13px;color:var(--mute)}
+.live{flex:none;font-size:13px;font-weight:700;white-space:nowrap;padding:4px 10px;border-radius:999px;background:var(--pink);color:#fff}
+.live.soon{background:var(--sun);color:#3a2600}
+.live.off{background:var(--chip);color:var(--mute);font-weight:500}
+.addr{color:var(--aqua);font-weight:500;text-decoration:none;font-size:15px}
+.addr:hover{text-decoration:underline}
+.when{font-size:15px;font-weight:500}
+.deal{margin:0;font-size:16px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:13px;padding:4px 10px;border-radius:8px;background:var(--chip);white-space:nowrap}
+.tag.y{background:light-dark(#ffe3ee,#4a1a2c)}
+.tag.b{background:light-dark(#dff5f3,#0f4a4c)}
+.tag.u{background:transparent;border:1px dashed var(--line);color:var(--mute)}
+.prices{list-style:none;margin:0;padding:0;border-top:1px dashed var(--line)}
+.prices li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.prices b{white-space:nowrap;font-variant-numeric:tabular-nums}
+.src{font-size:13px;color:var(--mute)}
+.note{font-size:13px;color:var(--mute);margin:0}
+.lbl{font-weight:500}.loc select{flex:1 1 220px}.gmsg{margin:0;font-size:14px;color:var(--mute)}.dist{flex:none;font-size:13px;color:var(--mute);white-space:nowrap}
+.yelp{font-size:14px;color:var(--ink);text-decoration:none;font-weight:500}.yelp:hover{text-decoration:underline}
+.empty{padding:40px 0;text-align:center;color:var(--mute)}
+footer{border-top:1px solid var(--line);padding:22px max(5vw,16px) 36px;color:var(--mute);font-size:14px}
+footer .in{max-width:1240px;margin:auto}
+footer a{color:var(--aqua)}
+@media(prefers-reduced-motion:no-preference){.card{animation:up .35s ease both}@keyframes up{from{opacity:0;transform:translateY(6px)}}}
+</style>
+</head>
+<body>
+<header>
+  <div class="in">
+    <h1>Happy Hours on Miami Beach</h1>
+    <p>Deals, prices, food and where you can sit — sorted by what's closest to you. Open status checked Nov 16, 2026.</p>
+  </div>
+  <svg viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true">
+    <circle cx="600" cy="118" r="78" fill="#fff3c4" opacity=".85"/>
+    <g fill="#ff5c93" opacity=".55"><rect x="0" y="62" width="1200" height="6"/><rect x="0" y="76" width="1200" height="5"/><rect x="0" y="88" width="1200" height="4"/></g>
+    <path d="M0 98 Q150 88 300 98 T600 98 T900 98 T1200 98 V110 H0Z" fill="#43d3c9"/>
+    <path d="M0 104 Q150 96 300 104 T600 104 T900 104 T1200 104 V110 H0Z" fill="#0f9e9a"/>
+  </svg>
+</header>
+
+<div class="bar"><div class="in">
+  <div class="row">
+    <input id="q" type="search" placeholder="Search name, street, oysters, tacos…" aria-label="Search happy hours">
+    <select id="hood" aria-label="Neighborhood"></select>
+  </div>
+  <div class="row loc">
+    <label for="near" class="lbl">Near</label>
+    <select id="near" aria-label="Your location"></select>
+    <button class="chip" id="gps">Use my location</button>
+    <button class="chip" id="fFood" aria-pressed="false">Food deals</button>
+  </div>
+  <p class="gmsg" id="gmsg" hidden></p>
+</div></div>
+
+<main>
+  <p class="count" id="count"></p>
+  <div class="list" id="list"></div>
+</main>
+
+<footer><div class="in">
+  <p><b>Recently closed (removed):</b> Tropezón on Española Way (last service Oct 3, 2026), Issabella's on Lincoln Road (replaced by Balan's, Sept 17, 2026); and Havana 1957 on Lincoln Road (reported closed, Nov 2026).</p>
+  <p><b>Check before you go.</b> Happy hours change often. Every listing shows where its details came from and when; deals marked with an older source (2024) are the most likely to have changed. "Seating not confirmed" means no source said whether the deal is bar-only — ask your server.</p>
+  <p>Sources: <a href="https://www.miamiandbeaches.com/things-to-do/nightlife/great-happy-hour-specials-in-south-beach">Miami &amp; Beaches, Feb 2026</a> · <a href="https://www.miamiandbeaches.com/things-to-do/nightlife/happy-hour-hotspots-in-miami-beach">Miami &amp; Beaches, Nov 2025</a> · <a href="https://www.miamilivingmagazine.com/post/best-south-florida-happy-hour-guide-spring-2026">Miami Living, spring 2026</a> · <a href="https://www.miaminewtimes.com/restaurants/best-happy-hour-miami-florida-20235048">Miami New Times</a> · <a href="https://artcircuits.com/?p=31251">Art Circuits</a> · <a href="https://secretmiami.com/best-happy-hours-miami-beach/">Secret Miami (updated Feb 2024)</a> · <a href="https://www.timeout.com/miami/bars/sweet-liberty-drinks-supply-company">Time Out</a> · <a href="https://worldredeye.com/2026/09/wre-news-balans-to-reopen-on-lincoln-road-this-month/">World Red Eye</a> · <a href="https://www.miaminewtimes.com/food-drink/miami-beach-hit-with-two-surprising-restaurant-closures-40588952/">Miami New Times (closures)</a> · <a href="https://www.miamilivingmagazine.com/post/the-scapegoat-south-of-fifth-miami-beach-renovation">Miami Living (ScapeGoat)</a> · <a href="https://theinfatuation.com/miami/guides/miami-happy-hour">The Infatuation</a> · <a href="https://havana1957.com">Havana 1957</a> · <a href="https://www.miaminewtimes.com/restaurants/miami-rooftop-theater-launches-happy-hour-with-skyline-views-22711450">Miami New Times (Rooftop Cinema Club)</a> · Yelp ratings as of Nov 16, 2026</p>
+</div></footer>
+
+<script>
+{
+const ALL=[0,1,2,3,4,5,6],WK=[1,2,3,4,5],MT=[1,2,3,4],FS=[5,6,0];
+const S={hav:"Havana 1957 official site, 2026",mntrc:"Miami New Times",mlsg:"Miami Living, Nov 2026",mnt23:"Miami New Times, 2023",wre:"World Red Eye, Sept 2026",gt:"Goodtime Hotel site",ot:"OpenTable, 2026",at:"Atly, Jun 2026",std:"Standard Hotels site + Miami New Times",o26:"Miami & Beaches, Feb 2026",o25:"Miami & Beaches, Nov 2025",ml:"Miami Living, spring 2026",mnt:"Miami New Times, 2026",ac:"Art Circuits",sm:"Secret Miami, Feb 2024",to:"Time Out"};
+// seat: bar = bar-only / the venue is a bar; all = bar & tables; ? = not confirmed
+const V=[
+{n:"Sweet Liberty Drinks & Supply Co.",y:[4.4,1078,"sweet-liberty-drinks-and-supply-company-miami-beach"],h:"Collins Park",a:"237 20th St, Ste B, Miami Beach, FL 33139",g:[25.7958,-80.1300],t:[[ALL,16,20]],d:"Cult cocktail bar with one of the beach's best cheap-oyster deals.",food:1,seat:"?",p:[["Raw oysters (each)","$1.25"],["Mini martini","$6"],["Select cocktails","$10"]],s:"o25",ok:"Open — Yelp reviews Nov 2025"},
+{n:"Monty's Sunset",h:"South of Fifth",a:"300 Alton Rd, Miami Beach, FL 33139",g:[25.7713,-80.1393],t:[[WK,17,20]],d:"Marina-side tiki bar with drink specials and raw-bar deals at sunset.",food:1,seat:"?",sn:"Centered on the open-air tiki bar",p:[["Well drinks & classic cocktails","$9"],["Domestic drafts","$6"],["Frozen drinks","$15"],["Raw bar (oysters, peel-and-eat shrimp)","Specials"]],s:"o25",ok:"Open — listings updated May 2026"},
+{n:"Santorini by Georgios",y:[4.4,1028,"santorini-by-georgios-miami-beach"],h:"South Beach",a:"1690 Collins Ave, Miami Beach, FL 33139",g:[25.7903,-80.1298],t:[[MT,15,19],[FS,15,17]],d:"Greek happy hour feast: a dozen-plus dishes and drinks, all one price.",food:1,seat:"?",p:[["12+ happy hour dishes","$7 each"],["Happy hour drinks","$7"]],s:"o26",ok:"Open — Yelp, Nov 2026",x:"Yelp lists 1690 Collins Ave; a Feb 2026 guide placed it at the Hilton Bentley (101 Ocean Dr). Confirm before going."},
+{n:"The Setai — Jaya & Japón",h:"South Beach",a:"The Setai, 2001 Collins Ave, Miami Beach, FL 33139",g:[25.7966,-80.1281],t:[[ALL,17,19]],d:"\"Sunset Hours\" in the hotel courtyard; Jaya on weekdays, Japón daily.",food:1,seat:"all",sn:"Courtyard seating",p:[["Cocktails","$12"],["Wine","$10"],["Appetizers","$12"],["Entrées","$24"]],s:"o26",ok:"Open — official guide Feb 2026"},
+{n:"Uchiko Miami Beach",y:[4.5,60,"uchiko-miami-beach-miami-beach-3"],h:"Sunset Harbour",a:"1759 Purdy Ave, Ste 102, Miami Beach, FL 33139",g:[25.7930,-80.1440],t:[[ALL,17,18.5]],d:"Upscale sushi happy hour, including a 9-course omakase for two.",food:1,seat:"?",p:[["Happy hour omakase (for two)","$120"],["Hama chili","$12"],["A5 crispy rice","$16"],["Cocktails","$10"],["Wine & sake","$9"],["Beer","$7.50"]],s:"o26",ok:"Open — OpenTable reviews Jun 2026"},
+{n:"Bay Club at Lucali",h:"Sunset Harbour",a:"1930 Bay Rd, Miami Beach, FL 33139",g:[25.7955,-80.1435],t:[[WK,17,20]],d:"Low-key lounge next to Lucali pizza with $10 drinks and $10 bites.",food:1,seat:"?",sn:"Small tables & sidewalk patio",p:[["Cocktails (most drinks)","~$10"],["Happy hour food menu","$10"]],s:"mnt",ok:"Open — Miami New Times Mar 2026"},
+{n:"Laurel Miami Beach",h:"South of Fifth",a:"Balfour Hotel, 350 Ocean Dr, Miami Beach, FL 33139",g:[25.7735,-80.1316],t:[[[1,2,3,4,5,6],15,18]],d:"Long drinks happy hour at the Balfour hotel restaurant.",food:0,seat:"?",p:[["Signature cocktails","$12"],["Wine","$9"],["Well cocktails","$8"],["Beer","$7"]],s:"ac",ok:"Open — Miami New Times 2026"},
+{n:"Minibar",h:"South of Fifth",a:"The Meridian Hotel, 418 Meridian Ave, Miami Beach, FL 33139",g:[25.7745,-80.1365],t:[[ALL,16,20]],d:"Tiny, friendly cocktail bar with a courtyard; drinks only.",food:0,seat:"bar",sn:"Bar plus courtyard seats",p:[["Beer","$6"],["House wine & well drinks","$8"]],s:"o26",ok:"Open — official guide Feb 2026"},
+{n:"Social Club — Kimpton Surfcomber",y:[4.2,2095,"the-social-club-miami-beach"],h:"South Beach",a:"1717 Collins Ave, Miami Beach, FL 33139",g:[25.7915,-80.1290],t:[[MT,17,20]],d:"Relaxed hotel lounge: plush couches or a seat at the bar.",food:1,seat:"all",sn:"Lounge couches or bar",p:[["Cocktails & wines","$10"],["Light bites","$12"]],s:"o25",ok:"Open — OpenTable reviews Jul 2026"},
+{n:"Brother's Keeper",y:[4.2,25,"brothers-keeper-miami-beach"],h:"South Beach (Alton Rd)",a:"1710 Alton Rd, Miami Beach, FL 33139",g:[25.7922,-80.1412],t:[[ALL,17,19]],d:"'80s-style neon cocktail bar — every drink is half off.",food:0,seat:"bar",p:[["All drinks","50% off"]],fn:"Food (fish dip, cheeseburger) at regular price",s:"o25",ok:"Open — official guide Mar 2026"},
+{n:"Mac's Club Deuce",h:"South Beach",a:"222 14th St, Miami Beach, FL 33139",g:[25.7856,-80.1319],t:[[ALL,8,17]],d:"Legendary dive with buy-one-get-one drinks most of the day. Cash only.",food:0,seat:"bar",p:[["Drinks","2 for 1"]],fn:"No food menu",s:"o26",ok:"Open — official guide Mar 2026"},
+{n:"Ted's Hideaway",h:"South of Fifth",a:"124 2nd St, Miami Beach, FL 33139",g:[25.7698,-80.1338],t:[[ALL,12,20]],d:"Locals' dive with pool and sports on TV; cheap beer from noon.",food:1,seat:"bar",p:[["Domestic & imported beers","Discounted"],["Bites","Discounted"]],s:"o25",ok:"Open — official guide Nov 2025"},
+{n:"Taquiza North Beach",h:"North Beach",a:"7450 Ocean Terrace, Miami Beach, FL 33141",g:[25.8640,-80.1210],t:[[MT,16,19]],d:"Michelin-noted taco spot with cheap margaritas and $3 tacos.",food:1,seat:"?",p:[["Tacos (al pastor, pollo asado)","$3"],["Margaritas","$7"],["Margarita pitchers","$28"]],s:"o25",x:"One listing shows Wed–Sun hours — call ahead Mon/Tue.",ok:"Open — Michelin listing"},
+{n:"Motek Miami Beach",y:[4.3,164,"motek-miami-beach-miami-beach-4"],h:"Mid-Beach",a:"2701 Collins Ave, Miami Beach, FL 33140",g:[25.8045,-80.1265],t:[[ALL,15,18]],d:"Mediterranean café with half-price drinks and $5 mezze.",food:1,seat:"?",p:[["Cocktails & wine","50% off"],["Mezze (laffa, hummus, chicken shawarma)","$5"]],s:"o25",ok:"Open — official guide Nov 2025"},
+{n:"Bodega Taqueria y Tequila",y:[4.0,2790,"bodega-taqueria-y-tequila-south-beach-miami-beach-2"],h:"South Beach (16th St)",a:"1220 16th St, Miami Beach, FL 33139",g:[25.7887,-80.1398],t:[[ALL,18,21]],d:"Taco counter with a speakeasy out back; tacos, nachos and cocktails.",food:1,seat:"?",p:[["Clásico tacos","$4"],["Nachos","$6"],["Rotating cocktails","$10"],["Bottles of wine","50% off"]],s:"o25",ok:"Open — official site lists hours"},
+{n:"The Roof at Esme",h:"Española Way",a:"Esme Hotel, 1438 Washington Ave, Miami Beach, FL 33139",g:[25.7863,-80.1318],t:[[ALL,16,18]],d:"Rooftop \"Golden Hour\" with wood-fired pizza and cheap drinks.",food:1,seat:"?",p:[["Handcrafted drinks","$8"],["Wine","$6"],["Beer","$5"],["Wood-fired pizza","$14"],["Salads","$10"]],s:"o25",x:"Days not stated in source.",ok:"Open — events held Mar 2026"},
+{n:"Strawberry Moon — The Goodtime Hotel",h:"South of Fifth",a:"601 Washington Ave, Miami Beach, FL 33139",g:[25.7755,-80.1340],t:[[ALL,16,18]],d:"Rooftop pool-club restaurant with half-price small plates and drinks.",food:1,seat:"bar",sn:"One listing says bar only",p:[["Small plates, wines, cocktails","50% off"]],s:"gt",x:"The hotel's main page no longer mentions happy hour — call ahead.",ok:"Open — hotel site; happy hour unconfirmed"},
+{n:"Balan's",y:[3.8,556,"balans-miami-beach-6"],h:"Lincoln Road",a:"1022 Lincoln Rd, Miami Beach, FL 33139",g:[25.7905,-80.1395],t:[[ALL,15,18]],d:"All-day London-born brasserie, back at its original Lincoln Road home (replaced Issabella's in Sept 2026).",food:null,seat:"?",p:[["Happy hour menu","Prices not yet published"]],s:"wre",ok:"Reopened Sept 17, 2026"},
+{n:"Playa Miami",h:"Lincoln Road",a:"915 Lincoln Rd, Miami Beach, FL 33139",g:[25.7905,-80.1380],t:[[WK,18,19]],d:"Lincoln Road spot, now billed as a steak & seafood house.",food:1,seat:"?",p:[["Wine & beer","$7"],["Specialty cocktails","$9"],["Bar bites","$7–$12"]],s:"ot",x:"Prices are from 2024, before the steakhouse rebrand — may have changed.",ok:"Open — OpenTable 2026"},
+{n:"WunderBar — Circa 39",y:[4.2,45,"wunderbar-miami-beach-2"],h:"Mid-Beach",a:"3900 Collins Ave, Miami Beach, FL 33140",g:[25.8150,-80.1235],t:[[ALL,12,19]],d:"Funky rum-focused hotel lobby bar with $7 drinks and food.",food:1,seat:"?",p:[["Drinks","$7"],["Happy hour food","Discounted"]],s:"at",x:"Days not stated in source.",ok:"Open — reviews Jun 2026"},
+{n:"Bar Centro — Andaz Miami Beach",h:"Mid-Beach",a:"Andaz Miami Beach, 4041 Collins Ave, Miami Beach, FL 33140",g:[25.8162,-80.1228],t:[[[4,5,6],16,19]],d:"José Andrés \"Golden Hour\" with ocean views and $5 bites.",food:1,seat:"?",p:[["Cocktails","$12"],["Bites (e.g., wagyu & chorizo sliders)","$5"]],s:"mnt",ok:"Open — Hyatt site lists Golden Hour"},
+{n:"Lido Bayside Grill — The Standard",h:"Belle Isle",a:"The Standard, 40 Island Ave, Miami Beach, FL 33139",g:[25.7930,-80.1475],t:[[MT,16,18]],d:"\"High Tides\" happy hour on Biscayne Bay with skyline views.",food:1,seat:"?",p:[["Everything by the glass (wine, beer, cocktails)","50% off"],["Bites","Happy hour menu"]],s:"std",ok:"Open — Standard Hotels site"},
+{n:"The ScapeGoat",h:"South of Fifth",a:"100 Collins Ave, CU-4, Miami Beach, FL 33139",g:[25.7693,-80.1335],t:[[ALL,17,20]],d:"Tiny, freshly redone cocktail bar with an '80s South Beach look; classic cocktails at one price.",food:0,seat:"bar",sn:"Fits about 40 people",p:[["Classic cocktails (daiquiri, gimlet, paloma, Manhattan, mojito, mule…)","$12"]],s:"mlsg",ok:"Open — Miami Living, Nov 2026"},
+{n:"The Abbey Brewing Company",h:"South Beach (16th St)",a:"1115 16th St, Miami Beach, FL 33139",g:[25.7888,-80.1395],t:[[ALL,16,19]],d:"Miami Beach's first craft-beer bar (since 1995): house brews, pool and darts.",food:0,seat:"bar",p:[["Drinks","50% off"]],s:"mnt23",x:"Happy hour details are from 2023 — the bar is open, but call to confirm the deal.",ok:"Open — Miami New Times, Mar 2026"},
+{n:"Havana 1957 — Ocean Drive",h:"South Beach",a:"Breakwater Hotel, 940 Ocean Dr, Miami Beach, FL 33139",g:[25.7795,-80.1307],t:[[WK,16,19]],d:"Cuban spot with live music: happy hour mojitos, classic cocktails and small plates to share.",food:1,seat:"?",p:[["Mojitos (classic, South Beach, fruity)","$8"],["Small plates","Happy hour menu"]],s:"hav",x:"Some pages on Havana 1957's site say 4–6pm; its main page and Ocean Drive menu say 4–7pm.",ok:"Open — official site, 2026"},
+{n:"Rooftop Cinema Club",h:"Lincoln Road",a:"1212 Lincoln Rd, Miami Beach, FL 33139",g:[25.7904,-80.1405],t:[[WK,17,19.5]],d:"Rooftop lounge above Lincoln Road with skyline sunsets, movie-themed cocktails and no dress code.",food:1,seat:"?",p:[["Craft cocktails","$10"],["Bar bites","Happy hour menu"]],s:"mntrc",ok:"Open — Miami New Times"},
+{n:"Kill Your Idol",h:"Española Way",a:"222 Española Way, Miami Beach, FL 33139",g:[25.7865,-80.1310],t:[[ALL,20,22]],d:"Late \"happy hour\" at a dive-y Española Way bar — all drinks half off.",food:0,seat:"bar",p:[["All drinks","50% off"]],s:"sm",x:"Happy hour times are from 2024 — bar is open, deal unconfirmed.",ok:"Open — concerts listed 2026"}
+];
+const PL=[["South Pointe Park",25.7680,-80.1340],["Ocean Dr & 10th St",25.7800,-80.1305],["Española Way",25.7866,-80.1320],["Lincoln Rd & Washington Ave",25.7905,-80.1330],["Lincoln Rd & Alton Rd",25.7905,-80.1410],["Sunset Harbour",25.7935,-80.1445],["Convention Center",25.7950,-80.1340],["Bass Museum / Collins Park",25.7967,-80.1290],["Mid-Beach (41st St)",25.8130,-80.1300],["Fontainebleau",25.8180,-80.1225],["North Beach Bandshell",25.8595,-80.1215]];
+const DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const fmt=h=>{const m=Math.round((h%1)*60),H=Math.floor(h),ap=H>=12?"pm":"am",h12=(H%12)||12;return h12+(m?":"+String(m).padStart(2,"0"):"")+ap};
+const days=a=>{const k=a.join();if(a.length===7)return"Daily";if(k==="1,2,3,4,5")return"Mon–Fri";if(k==="1,2,3,4")return"Mon–Thu";if(k==="5,6,0")return"Fri–Sun";return DN[a[0]]+"–"+DN[a[a.length-1]]};
+const when=v=>v.t.map(([d,s,e])=>days(d)+" "+fmt(s)+"–"+fmt(e)).join(" · ");
+function nowMB(){try{const p=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",weekday:"short",hour:"numeric",minute:"numeric",hour12:false}).formatToParts(new Date());const g=k=>p.find(x=>x.type===k).value;return{d:DN.indexOf(g("weekday")),h:(+g("hour")%24)+(+g("minute"))/60}}catch(e){const n=new Date();return{d:n.getDay(),h:n.getHours()+n.getMinutes()/60}}}
+function status(v){const n=nowMB();for(const[d,s,e]of v.t){if(d.includes(n.d)&&n.h>=s&&n.h<e)return{k:"on",txt:"On now · until "+fmt(e),r:e-n.h}}
+for(let k=0;k<8;k++){const dd=(n.d+k)%7;let best=null;for(const[d,s]of v.t){if(d.includes(dd)&&(k>0||s>n.h)&&(best===null||s<best))best=s}
+if(best!==null){const wait=k*24+best-n.h;const lab=k===0?"Starts "+fmt(best):k===1?"Tomorrow "+fmt(best):DN[dd]+" "+fmt(best);return{k:wait<=2?"soon":"off",txt:lab,r:10+wait}}}
+return{k:"off",txt:"Check times",r:999}}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const seatTag=v=>v.seat==="bar"?'<span class="tag b">Bar seating</span>':v.seat==="all"?'<span class="tag b">Bar &amp; tables</span>':'<span class="tag u">Seating not confirmed</span>';
+const st={q:"",hood:"",now:false,food:false,tables:false,bar:false};
+const hoods=[...new Set(V.map(v=>v.h))].sort();
+const sel=document.getElementById("hood");
+sel.innerHTML='<option value="">All neighborhoods</option>'+hoods.map(h=>`<option>${esc(h)}</option>`).join("");
+let here=null;
+const mi=v=>{if(!here)return 0;const R=3958.8,r=x=>x*Math.PI/180,dLa=r(v.g[0]-here[0]),dLo=r(v.g[1]-here[1]);const a=Math.sin(dLa/2)**2+Math.cos(r(here[0]))*Math.cos(r(v.g[0]))*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(a))};
+const near=document.getElementById("near"),gmsg=document.getElementById("gmsg");
+near.innerHTML='<option value="">Choose where you are…</option><option value="gps" hidden>My current location</option>'+PL.map((p,i)=>`<option value="${i}">${esc(p[0])}</option>`).join("");
+function setNear(v){if(v===""){here=null}else if(v!=="gps"){const p=PL[+v];here=[p[1],p[2]]}try{localStorage.setItem("mbhh-near",v)}catch(e){}render()}
+near.addEventListener("change",e=>{gmsg.hidden=true;setNear(e.target.value)});
+document.getElementById("gps").addEventListener("click",()=>{
+  const fail=()=>{gmsg.hidden=false;gmsg.textContent="Your phone's location isn't available in this view. Pick the closest spot from the list instead."};
+  if(!navigator.geolocation){fail();return}
+  gmsg.hidden=false;gmsg.textContent="Finding you…";
+  try{navigator.geolocation.getCurrentPosition(p=>{here=[p.coords.latitude,p.coords.longitude];near.querySelector('[value=gps]').hidden=false;near.value="gps";gmsg.hidden=true;render()},fail,{timeout:8000,maximumAge:300000})}catch(e){fail()}
+});
+try{const sv=localStorage.getItem("mbhh-near");if(sv&&sv!=="gps"&&PL[+sv]){near.value=sv;const p=PL[+sv];here=[p[1],p[2]]}}catch(e){}
+function render(){
+  const q=st.q.trim().toLowerCase();
+  let r=V.map(v=>({v,s:status(v)})).filter(({v,s})=>
+    (!q||(v.n+" "+v.a+" "+v.d+" "+v.p.map(x=>x[0]).join(" ")).toLowerCase().includes(q))&&
+    (!st.hood||v.h===st.hood)&&(!st.now||s.k==="on")&&(!st.food||v.food)&&
+    (!st.tables||v.seat==="all")&&(!st.bar||v.seat==="bar"));
+  r.sort((a,b)=>here?mi(a.v)-mi(b.v):(a.s.r-b.s.r||a.v.n.localeCompare(b.v.n)));
+  document.getElementById("count").textContent=r.length+" of "+V.length+" happy hours"+(st.now?" happening right now":"")+(here?" · closest first":" · pick where you are to sort by distance");
+  document.getElementById("list").innerHTML=r.length?r.map(({v,s})=>`
+  <article class="card">
+    <div class="top"><div><h2>${esc(v.n)}</h2><div class="hood">${esc(v.h)}${here?` · <span class="dist">${mi(v).toFixed(1)} mi</span>`:""}</div></div>
+      <span class="live ${s.k==="on"?"":s.k==="soon"?"soon":"off"}">${esc(s.txt)}</span></div>
+    <a class="addr" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.a)}" rel="noopener">${esc(v.a)}</a>
+    <div class="when">${esc(when(v))}</div>
+    ${v.y?`<a class="yelp" href="https://www.yelp.com/biz/${v.y[2]}" rel="noopener">★ ${v.y[0].toFixed(1)} on Yelp · ${v.y[1].toLocaleString()} reviews</a>`:""}
+    <p class="deal">${esc(v.d)}</p>
+    <div class="tags">${v.food===null?'<span class="tag u">Food deal not confirmed</span>':v.food?'<span class="tag y">Food included</span>':'<span class="tag">Drinks only</span>'}${seatTag(v)}${v.sn?`<span class="tag">${esc(v.sn)}</span>`:""}</div>
+    <ul class="prices">${v.p.map(([i,p])=>`<li><span>${esc(i)}</span><b>${esc(p)}</b></li>`).join("")}</ul>
+    ${v.fn?`<p class="note">${esc(v.fn)}</p>`:""}${v.x?`<p class="note">${esc(v.x)}</p>`:""}
+    <div class="src">${esc(v.ok)} · Deal source: ${esc(S[v.s])}</div>
+  </article>`).join(""):'<div class="empty">No happy hours match. Try clearing a filter.</div>';
+}
+const tg=(id,k)=>document.getElementById(id).addEventListener("click",e=>{st[k]=!st[k];e.currentTarget.setAttribute("aria-pressed",st[k]);if(k==="tables"&&st.tables){st.bar=false;document.getElementById("fBar").setAttribute("aria-pressed","false")}if(k==="bar"&&st.bar){st.tables=false;document.getElementById("fTables").setAttribute("aria-pressed","false")}render()});
+tg("fFood","food");
+document.getElementById("q").addEventListener("input",e=>{st.q=e.target.value;render()});
+sel.addEventListener("change",e=>{st.hood=e.target.value;render()});
+render();setInterval(render,60000);
+}
+</script>
+</body>
+</html>
