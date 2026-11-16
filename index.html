@@ -70,6 +70,14 @@ footer .in{max-width:1240px;margin:auto}
 footer a{color:var(--aqua)}
 .upd{margin:18px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:13px;text-align:center}
 @media(prefers-reduced-motion:no-preference){.card{animation:up .35s ease both}@keyframes up{from{opacity:0;transform:translateY(6px)}}}
+header svg.boat{inset:auto auto 8px 0;width:44px;height:37px;z-index:0}
+header svg.gull{inset:22px auto auto 0;width:26px;height:10px;opacity:.7}
+@media(prefers-reduced-motion:no-preference){
+.wv1{animation:wave 9s linear infinite}.wv2{animation:wave 6s linear infinite reverse}@keyframes wave{from{transform:translateX(0)}to{transform:translateX(-600px)}}
+.glow{animation:glow 5s ease-in-out infinite alternate}@keyframes glow{from{opacity:.4}to{opacity:.7}}
+.sun{animation:sun 7s ease-in-out infinite alternate}@keyframes sun{from{opacity:.75}to{opacity:.95}}
+header svg.boat{animation:sail 38s linear infinite,bob 3s ease-in-out infinite alternate}@keyframes sail{from{left:-60px}to{left:calc(100% + 20px)}}@keyframes bob{from{translate:0 0;rotate:-2deg}to{translate:0 -3px;rotate:2deg}}
+header svg.gull{animation:fly 24s linear infinite,flap .9s ease-in-out infinite alternate}@keyframes fly{from{left:calc(100% + 30px);top:30px}50%{top:14px}to{left:-40px;top:34px}}@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.55)}}}
 header p.upd{font-size:13px;margin-top:6px;text-align:left;border:0;padding:0}
 </style>
 </head>
@@ -80,11 +88,13 @@ header p.upd{font-size:13px;margin-top:6px;text-align:left;border:0;padding:0}
     <p class="upd"><span id="updated">Last updated: November 16, 2026</span></p>
   </div>
   <svg viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true">
-    <circle cx="600" cy="118" r="78" fill="#fff3c4" opacity=".85"/>
-    <g fill="#ff5c93" opacity=".55"><rect x="0" y="62" width="1200" height="6"/><rect x="0" y="76" width="1200" height="5"/><rect x="0" y="88" width="1200" height="4"/></g>
-    <path d="M0 98 Q150 88 300 98 T600 98 T900 98 T1200 98 V110 H0Z" fill="#43d3c9"/>
-    <path d="M0 104 Q150 96 300 104 T600 104 T900 104 T1200 104 V110 H0Z" fill="#0f9e9a"/>
+    <circle class="sun" cx="600" cy="118" r="78" fill="#fff3c4" opacity=".85"/>
+    <g fill="#ff5c93" opacity=".55" class="glow"><rect x="0" y="62" width="1200" height="6"/><rect x="0" y="76" width="1200" height="5"/><rect x="0" y="88" width="1200" height="4"/></g>
+    <path class="wv1" d="M0 98 Q150 88 300 98 T600 98 T900 98 T1200 98 T1500 98 T1800 98 V110 H0Z" fill="#43d3c9"/>
+    <path class="wv2" d="M0 104 Q150 96 300 104 T600 104 T900 104 T1200 104 T1500 104 T1800 104 V110 H0Z" fill="#0f9e9a"/>
   </svg>
+  <svg class="boat" viewBox="0 0 60 50" aria-hidden="true"><path d="M30 4 L30 38 L8 38 Z" fill="#fff"/><path d="M32 10 L32 38 L50 38 Z" fill="#ffe1ec"/><rect x="29.5" y="3" width="1.6" height="37" fill="#2a0f1c"/><path d="M4 40 L56 40 L48 47 L12 47 Z" fill="#2a0f1c"/></svg>
+  <svg class="gull" viewBox="0 0 40 14" aria-hidden="true"><path d="M2 10 Q10 2 20 9 Q30 2 38 10" fill="none" stroke="#2a0f1c" stroke-width="2.2" stroke-linecap="round"/></svg>
 </header>
 
 <div class="bar"><div class="in">
